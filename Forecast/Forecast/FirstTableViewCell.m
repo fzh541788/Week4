@@ -32,8 +32,8 @@
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.textColor = [UIColor blackColor];
     
-    _nowLabel.frame = CGRectMake(200, 25, 100, 20);
-    _nowLabel.font = [UIFont systemFontOfSize:17];
+    _nowLabel.frame = CGRectMake(270, 25, 100, 20);
+    _nowLabel.font = [UIFont systemFontOfSize:25];
     _nowLabel.textAlignment = NSTextAlignmentCenter;
     _nowLabel.textColor = [UIColor blackColor];
 //    

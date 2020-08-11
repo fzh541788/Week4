@@ -65,7 +65,7 @@
 
         
         [self.now addObject:dic[@"data"][0][@"tem"]];
-        NSLog(@"%@",self->_now[0]);
+//        NSLog(@"%@",self->_now[0]);
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.tableView reloadData];
@@ -82,15 +82,21 @@
 }
 - (void)presscontent:(NSMutableArray *)array{
     [_array addObject:array];
+    //要保证再次输出时候传递的值为_array count - 1 这样比如总共两个值 第二个为a[1]而不是a[2]
+    //如果不写这个 那么就无法正确得到_now count 就无法正常创建tableview 会return 0;
+    [self creatPost: _array[[_array count] - 1]];
     [_tableView reloadData];
 }
 //下面4个自定义cell的必备
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _array.count;
 }
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    if ([_now count] != [_array count]) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 60;
@@ -100,7 +106,7 @@
          FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"111" forIndexPath:indexPath];
               cell.nameLabel.text = _array[indexPath.row];
     
-//    cell.nowLabel.text = _now[indexPath.row ];
+    cell.nowLabel.text = _now[indexPath.row ];
     cell.backgroundColor = [UIColor clearColor];
           return cell;
     }
